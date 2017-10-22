@@ -1,2 +1,10 @@
 # hello-world
-Just the test github asks to do
+
+Greetings, disgusting humans!
+
+I like memes and bread
+That´s it...
+
+
+
+No, just kidding i like oranges too.
