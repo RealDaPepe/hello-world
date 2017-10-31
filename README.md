@@ -1,10 +1,5 @@
 # hello-world
 
-Greetings, disgusting humans!
 
-I like memes and bread
-That´s it...
-
-
-
-No, just kidding i like oranges too.
+Dont say anything
+https://www.youtube.com/watch?v=UWyP_Y99z44
