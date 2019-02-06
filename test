@@ -1,0 +1,116 @@
+Attention, this is just a test
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using SteamKit2;
+
+namespace tutorialbot
+{
+    class Program
+    {
+        static string user, pass;
+
+        static SteamClient steamClient;
+        static CallbackManager manager;
+        static SteamUser steamUser;
+        static bool isRunning = false;
+
+        static void Main(string[] args)
+        {
+            Console.Title = "Steam Bot";
+            Console.WriteLine("CTRL+C quits the program.");
+
+            Console.Write("Username: ");
+            user = Console.ReadLine();
+            Console.Write("Password: ");
+            pass = Console.ReadLine();
+
+            SteamLogIn();
+
+        }
+        static void SteamLogIn()
+        {
+            steamClient = new SteamClient();
+            manager = new CallbackManager(steamClient);
+            steamUser = steamClient.GetHandler<SteamUser>();
+
+            new Callback<SteamClient.ConnectedCallback>(OnConnected, manager);
+
+            new Callback<SteamUser.LoggedOnCallback>(OnLoggedOn, manager);
+
+            new Callback<SteamUser.UpdateMachineAuthCallback>(OnMachineAuth , manager)
+
+            isRunning = true;
+
+            Console.WriteLine("Connecting to steam...\n");
+
+            steamClient.Connect();
+
+
+            while (isRunning)
+            {
+                manager.RunWaitCallbacks(TimeSpan.FromSeconds(1));
+            }
+            Console.ReadKey();
+        }
+        static void OnConnected(SteamClient.ConnectedCallback callback)
+        {
+            if (callback.Result != EResult.OK)
+            {
+                Console.WriteLine("Shit...Unable to connect to Steam{0}", callback.Result);
+                isRunning = false;
+                return;
+            }
+            Console.WriteLine("Connected to Steam. \nLogging in {0}...\n", user);
+
+            steamUser.LogOn(new SteamUser.LogOnDetails
+            {
+                Username = user,
+                Password = pass,
+            });
+        }
+
+        static void OnLoggedOn(SteamUser.LoggedOnCallback callback)
+        {
+            if (callback.Result != EResult.AccountLogonDenied)
+            {
+                Console.WriteLine("This account is steamGuard protected.");
+
+                Console.Writeline("Please enter the auth code sent to the email at (0)", callback.EmailDomain);
+
+                authCode = Console.ReadLine();
+
+                return;
+            }
+            if (callback.Result != EResult.OK)
+            {
+                Console.WriteLine("Unable to log in to Steam {0}\n", callback);
+                isRunning = false;
+                return;
+            }
+            Console.WriteLine("{0} succesfully logged in!", user);
+            Console.ReadKey();
+            Environment.Exit(0);
+        }
+        static.void UpdateMachineAuthCallback(SteamUser.UpdateMachineAuthCallback callback)
+    }
+    Console.WriteLine("Updating sentry file...);
+
+        byte[] sentryHash = CryptoHelper.SHAHash(Callback.data);
+
+    File.WriteAllBytes("sentry bin" , callback Data);
+    
+    SteamUser.SendMachineAuthResponse(new SteamUser.MachineAuthDetails)
+}
+JobID = Callback.JobID,
+Filename = Callback.BytesToWrite,
+FileSize = Callback.Data.Lenght,
+Offset = Callback.Offset,
+Result = EResult.OK,
+LastError=0,
+OneTimePassword = Callback.OneTimePassword,
+SentryFileName = sentryHash,
+
+]};
